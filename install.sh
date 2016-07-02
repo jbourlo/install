@@ -253,14 +253,20 @@ node(){
   # clean up 
   rm -rf node 
   rm -rf node-$NODE_VERSION*
-  
+  mkdir node
+  mkdir node/lib
+  mkdir node/bin
+
   echo :Installing Node $NODE_VERSION
   
-  $DOWNLOAD https://nodejs.org/dist/$NODE_VERSION/node-$NODE_VERSION-$1-$2.tar.gz
-  tar xzf node-$NODE_VERSION-$1-$2.tar.gz
-  mv node-$NODE_VERSION-$1-$2 node
-  rm node-$NODE_VERSION-$1-$2.tar.gz
-
+  #$DOWNLOAD https://nodejs.org/dist/$NODE_VERSION/node-$NODE_VERSION-$1-$2.tar.gz
+  #tar xzf node-$NODE_VERSION-$1-$2.tar.gz
+  #mv node-$NODE_VERSION-$1-$2 node
+  #rm node-$NODE_VERSION-$1-$2.tar.gz
+  cp -R /usr/lib/node_modules node/lib
+  cp /usr/bin/node node/bin
+  cp -R /usr/bin/npm node/bin 
+  
   # use local npm cache
   "$NPM" config -g set cache  "$C9_DIR/tmp/.npm"
   ensure_local_gyp
